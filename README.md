@@ -1,6 +1,6 @@
 # Kubernetes Operator Design Skill
 
-A high-profile, production-grade custom skill designed for AI Coding Agents (such as Google Antigravity, Claude Code, and Codex) to guide the architecture, development, security hardening, and distribution of Kubernetes Operators.
+A high-profile, production-grade custom skill designed for AI Coding Agents (such as Google Antigravity, Claude Code, and Codex / GitHub Copilot) to guide the architecture, development, security hardening, and distribution of Kubernetes Operators.
 
 This skill synthesizes core principles from O'Reilly's *Kubernetes Operators* with advanced security guidelines for informer cache tuning and OOMKill protection.
 
@@ -37,27 +37,62 @@ This skill synthesizes core principles from O'Reilly's *Kubernetes Operators* wi
 
 ---
 
-## Installation
+## Installation & Setup
 
-### 1. Global Scope (Available in all your projects)
-To make this skill globally available to your AI assistant:
-1. Clone this repository to a local folder:
+### 1. Google Antigravity Installation
+Antigravity automatically discovers skills placed in its customization roots.
+
+#### Global Scope (Available in all your projects)
+1. Clone this repository locally:
    ```bash
    git clone https://github.com/Pratham700/kubernetes-operator-design-skill.git ~/kubernetes-operator-design-skill
    ```
-2. Create a symbolic link from the skill directory to your global agent configurations:
+2. Symlink the skill folder to your global config directory:
    ```bash
    ln -s ~/kubernetes-operator-design-skill/skills/kubernetes-operator-design ~/.gemini/config/skills/kubernetes-operator-design
    ```
 
-### 2. Workspace Scope (Shared with your project team)
-To commit this skill directly to a specific codebase workspace:
-1. Copy or clone the skill folder into your repository's `.agents` configurations:
+#### Workspace Scope (Specific to your active project)
+Copy the skill folder into your repository's workspace customizations root:
+```bash
+mkdir -p .agents/skills/
+cp -r ~/kubernetes-operator-design-skill/skills/kubernetes-operator-design .agents/skills/
+```
+
+---
+
+### 2. Claude Code Installation
+Claude Code uses `CLAUDE.md` files to enforce persistent instructions and conventions across sessions.
+
+#### Global Scope (Enforced in all Claude Code sessions)
+Append the content of `SKILL.md` (and references if needed) to Claude's global configurations file:
+```bash
+mkdir -p ~/.claude/
+cat ~/kubernetes-operator-design-skill/skills/kubernetes-operator-design/SKILL.md >> ~/.claude/CLAUDE.md
+```
+
+#### Project Scope (Committed to your Git repository)
+Create a project-specific instructions file in your workspace root:
+```bash
+cat ~/kubernetes-operator-design-skill/skills/kubernetes-operator-design/SKILL.md > ./CLAUDE.md
+```
+
+---
+
+### 3. Codex & GitHub Copilot Installation
+GitHub Copilot reads instructions from `.github/copilot-instructions.md` to customize its context and ensure code output matches project guidelines.
+
+#### Project Scope (Applies to all Copilot Chat requests in the IDE)
+Create the custom instructions file in your repository's `.github` directory:
+1. Create the target directory:
    ```bash
-   mkdir -p .agents/skills/
-   cp -r ~/kubernetes-operator-design-skill/skills/kubernetes-operator-design .agents/skills/
+   mkdir -p .github/
    ```
-2. Add `.agents` to git so your team can use the same skill workflows.
+2. Copy the skill workflow as the baseline instructions:
+   ```bash
+   cat ~/kubernetes-operator-design-skill/skills/kubernetes-operator-design/SKILL.md > .github/copilot-instructions.md
+   ```
+3. (Optional) To add all reference sub-files to Copilot's context, merge them into a single consolidated file or place them under `.github/instructions/` and configure glob mappings.
 
 ---
 
